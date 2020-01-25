@@ -44,3 +44,8 @@ def main() -> str:
 def version() -> str:
     import sys
     return sys.version
+
+@app.route("/pull_git")
+def pull_git() -> str:
+    import subprocess
+    return subprocess.call("git pull origin master".split())
