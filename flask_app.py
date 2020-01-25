@@ -33,8 +33,8 @@ def main() -> str:
     try:
         conn = engine.connect()
         if request.method == "POST":
-            ins = sa.sql.text("""INSERT INTO msgs (text) VALUES (":text");""")
-            conn.execute(ins, text=request.form["text"])
+            ins = msgs.insert().values(text=request.form["text"])
+            conn.execute(ins)
         log = "<br/>".join(str(row[0]) for row in conn.execute("SELECT text FROM msgs"))
         return template.format(log + input_field)
     finally:
@@ -55,4 +55,5 @@ def pull_git() -> str:
     ).stdout
     with open("pull_git_log", "a") as f:
         f.write(datetime.datetime.now().isoformat() + ": " + txt)
+    assert txt
     return txt
