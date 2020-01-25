@@ -48,6 +48,11 @@ def version() -> str:
 
 @app.route("/pull_git")
 def pull_git() -> str:
-    return subprocess.run(
+    with open("pull_git_log", "a") as f:
+        f.write(datetime.datetime.now().isoformat() + ": pulling git")
+    txt = subprocess.run(
         "git pull origin master".split(), capture_output=True, text=True, check=False
     ).stdout
+    with open("pull_git_log", "a") as f:
+        f.write(datetime.datetime.now().isoformat() + ": " + txt)
+    return txt
