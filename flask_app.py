@@ -1,6 +1,8 @@
+import datetime
+import sys
+import subprocess
 from flask import Flask, request
 import sqlalchemy as sa
-import datetime
 
 app = Flask(__name__)
 
@@ -33,19 +35,19 @@ def main() -> str:
         if request.method == "POST":
             ins = sa.sql.text("""INSERT INTO msgs (text) VALUES (":text");""")
             conn.execute(ins, text=request.form["text"])
-        msgs = "<br/>".join(
-            str(row[0]) for row in conn.execute("SELECT text FROM msgs")
-        )
-        return template.format(msgs + input_field)
+        log = "<br/>".join(str(row[0]) for row in conn.execute("SELECT text FROM msgs"))
+        return template.format(log + input_field)
     finally:
         conn.close()
 
+
 @app.route("/version")
 def version() -> str:
-    import sys
     return sys.version
+
 
 @app.route("/pull_git")
 def pull_git() -> str:
-    import subprocess
-    return subprocess.call("git pull origin master".split())
+    return subprocess.run(
+        "git pull origin master".split(), capture_output=True, text=True, check=False
+    ).stdout
