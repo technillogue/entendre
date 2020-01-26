@@ -2,7 +2,7 @@ import datetime
 import sys
 import subprocess
 from flask import Flask, request, render_template
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, send, emit
 import sqlalchemy as sa
 
 app = Flask(__name__)
@@ -59,9 +59,12 @@ def version() -> str:
 @app.route("/emit_msg", methods=["GET", "POST"])
 def emit_msg() -> str:
     message = request.args.get("msg", "poke")
-    socketio.emit("chat message", message)
+    emit("chat message", message)
     return '<a href="http://entendre.pythonanywhere.com/emit_msg?msg=hewwo">hewwo??</a>'
 
+@socketio.on("chat message")
+def handle_chat_msg(msg):
+    flask_socketio.emit("chat message", f"you said {msg}")
 
 @app.route("/pull_git")
 def pull_git() -> str:
