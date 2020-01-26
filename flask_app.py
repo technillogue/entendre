@@ -18,12 +18,15 @@ msgs = sa.Table(
     sa.Column("text", sa.Text),
     sa.Column("created_at", sa.Date, default=datetime.datetime.now),
 )
+USERNAME = "entendre"
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username="entendre",
+    username=USERNAME,
     password="entendre password",
     hostname="entendre.mysql.pythonanywhere-services.com",
     databasename="entendre$test",
 )
+CWD = f"/home/{USERNAME}/mysite"
+
 engine = sa.create_engine(SQLALCHEMY_DATABASE_URI)
 metadata.create_all(engine)
 
@@ -47,10 +50,11 @@ def version() -> str:
         "git log -1".split(),
         capture_output=True,
         text=True,
-        cwd="$HOME/mysite",
+        cwd=CWD,
         check=False,
     )
     return f"commit: {commit_version}\n python:{sys.version}"
+
 
 @app.route("/pull_git")
 def pull_git() -> str:
@@ -60,7 +64,7 @@ def pull_git() -> str:
         "git pull origin master".split(),
         capture_output=True,
         text=True,
-        cwd="$HOME/mysite",
+        cwd=CWD,
         check=False,
     ).stdout
     with open("pull_git_log", "a") as f:
