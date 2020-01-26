@@ -56,7 +56,7 @@ def version() -> str:
     ).stdout
     return f"commit: {commit_version}<br/> python:{sys.version}"
 
-@app.route("emit_msg", methods=["GET", "POST"])
+@app.route("/emit_msg", methods=["GET", "POST"])
 def emit_msg() -> str:
     message = request.args.get("msg", "poke")
     socketio.emit("chat message", message)
