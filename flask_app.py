@@ -52,7 +52,7 @@ def version() -> str:
         text=True,
         cwd=CWD,
         check=False,
-    )
+    ).stdout
     return f"commit: {commit_version}\n python:{sys.version}"
 
 
