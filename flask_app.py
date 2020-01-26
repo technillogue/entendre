@@ -2,11 +2,12 @@ import datetime
 import sys
 import subprocess
 from flask import Flask, request, render_template
+from flask_socketio import SocketIO
 import sqlalchemy as sa
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
+socketio = SocketIO(app)
 
 metadata = sa.MetaData()
 msgs = sa.Table(
@@ -54,6 +55,12 @@ def version() -> str:
         "git log -1".split(), capture_output=True, text=True, cwd=CWD, check=False,
     ).stdout
     return f"commit: {commit_version}<br/> python:{sys.version}"
+
+@app.route("emit_msg", methods=["GET", "POST"])
+def emit_msg() -> str:
+    message = request.args.get("msg", "poke")
+    socketio.emit("chat message", message)
+    return '<a href="http://entendre.pythonanywhere.com/emit_msg?msg=hewwo">hewwo??</a>'
 
 
 @app.route("/pull_git")
