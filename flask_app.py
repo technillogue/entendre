@@ -5,7 +5,7 @@ from flask import Flask, request
 import sqlalchemy as sa
 
 app = Flask(__name__)
-
+app.config["DEBUG"] = True
 
 template = "<html><head><title>entendre?</title></head><body>{}</body></html>"
 input_field = '<form action="." method="POST"><textarea name="text"></textarea><input type="submit" value="add"></form>'
@@ -43,17 +43,27 @@ def main() -> str:
 
 @app.route("/version")
 def version() -> str:
-    return sys.version
-
+    commit_version = subprocess.run(
+        "git log -1".split(),
+        capture_output=True,
+        text=True,
+        cwd="$HOME/mysite",
+        check=False,
+    )
+    return f"commit: {commit_version}\n python:{sys.version}"
 
 @app.route("/pull_git")
 def pull_git() -> str:
     with open("pull_git_log", "a") as f:
-        f.write(datetime.datetime.now().isoformat() + ": pulling git")
+        f.write(datetime.datetime.now().isoformat() + ": pulling git\n")
     txt = subprocess.run(
-        "git pull origin master".split(), capture_output=True, text=True, check=False
+        "git pull origin master".split(),
+        capture_output=True,
+        text=True,
+        cwd="$HOME/mysite",
+        check=False,
     ).stdout
     with open("pull_git_log", "a") as f:
-        f.write(datetime.datetime.now().isoformat() + ": " + txt)
+        f.write(datetime.datetime.now().isoformat() + ": " + txt + "\n")
     assert txt
     return txt
