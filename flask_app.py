@@ -1,20 +1,19 @@
 import datetime
 import sys
 import subprocess
-from flask import Flask, request
+from flask import Flask, request, render_template
 import sqlalchemy as sa
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-template = "<html><head><title>entendre?</title></head><body>{}</body></html>"
-input_field = '<form action="." method="POST"><textarea name="text"></textarea><input type="submit" value="add"></form>'
 
 metadata = sa.MetaData()
 msgs = sa.Table(
     "msgs",
     metadata,
     sa.Column("id", sa.Integer, primary_key=True),
+    #    sa.Column("author", sa.Text),
     sa.Column("text", sa.Text),
     sa.Column("created_at", sa.Date, default=datetime.datetime.now),
 )
@@ -39,21 +38,22 @@ def main() -> str:
             ins = msgs.insert().values(text=request.form["text"])
             conn.execute(ins)
         log = "<br/>".join(str(row[0]) for row in conn.execute("SELECT text FROM msgs"))
-        return template.format(log + input_field)
+        return render_template("simple_main.html", messages=log)
     finally:
         conn.close()
+
+
+@app.route("/fancy", methods=["GET", "POST"])
+def fancy() -> str:
+    return render_template("main.html")
 
 
 @app.route("/version")
 def version() -> str:
     commit_version = subprocess.run(
-        "git log -1".split(),
-        capture_output=True,
-        text=True,
-        cwd=CWD,
-        check=False,
+        "git log -1".split(), capture_output=True, text=True, cwd=CWD, check=False,
     ).stdout
-    return f"commit: {commit_version}\n python:{sys.version}"
+    return f"commit: {commit_version}<br/> python:{sys.version}"
 
 
 @app.route("/pull_git")
