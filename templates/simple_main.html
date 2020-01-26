@@ -4,8 +4,11 @@
     </head>
     <body>
      <div style="margins: 20%">
+
         <div>
-        {{messages}}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
         </div>
       <form action="." method="POST">
           <textarea name="text"></textarea>

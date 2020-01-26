@@ -37,8 +37,8 @@ def main() -> str:
         if request.method == "POST":
             ins = msgs.insert().values(text=request.form["text"])
             conn.execute(ins)
-        log = "<br/>".join(str(row[0]) for row in conn.execute("SELECT text FROM msgs"))
-        return render_template("simple_main.html", messages=log)
+        messages = [str(row[0]) for row in conn.execute("SELECT text FROM msgs")]
+        return render_template("simple_main.html", messages=messages)
     finally:
         conn.close()
 
