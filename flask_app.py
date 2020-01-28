@@ -3,12 +3,12 @@ import sys
 import subprocess
 from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, emit
-import sqlalchemy as sa
+#import sqlalchemy as sa
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 socketio = SocketIO(app)
-
+"""
 metadata = sa.MetaData()
 msgs = sa.Table(
     "msgs",
@@ -18,22 +18,25 @@ msgs = sa.Table(
     sa.Column("text", sa.Text),
     sa.Column("created_at", sa.Date, default=datetime.datetime.now),
 )
-USERNAME = "entendre"
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username=USERNAME,
     password="entendre password",
     hostname="entendre.mysql.pythonanywhere-services.com",
     databasename="entendre$test",
 )
-CWD = f"/home/{USERNAME}/mysite"
 
 engine = sa.create_engine(SQLALCHEMY_DATABASE_URI)
 metadata.create_all(engine)
+"""
 
+USERNAME = "entendre"
+CWD = f"/home/{USERNAME}/mysite"
 
 @app.route("/", methods=["GET", "POST"])
 def main() -> str:
-    try:
+    return "hello world"
+"""
+try:
         conn = engine.connect()
         if request.method == "POST":
             ins = msgs.insert().values(text=request.form["text"])
@@ -48,7 +51,7 @@ def main() -> str:
 def fancy() -> str:
     return render_template("main.html")
 
-
+"""
 @app.route("/version")
 def version() -> str:
     commit_version = subprocess.run(
@@ -60,11 +63,11 @@ def version() -> str:
 def emit_msg() -> str:
     message = request.args.get("msg", "poke")
     emit("chat message", message)
-    return '<a href="http://entendre.pythonanywhere.com/emit_msg?msg=hewwo">hewwo??</a>'
+    return '<a href="#?msg=hewwo">hewwo??</a>'
 
 @socketio.on("chat message")
 def handle_chat_msg(msg):
-    flask_socketio.emit("chat message", f"you said {msg}")
+    emit("chat message", f"you said {msg}")
 
 @app.route("/pull_git")
 def pull_git() -> str:
