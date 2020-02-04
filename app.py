@@ -5,7 +5,7 @@ from flask import Flask, request, render_template
 from flask_socketio import SocketIO, send, emit
 #import sqlalchemy as sa
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="")
 app.config["DEBUG"] = True
 socketio = SocketIO(app)
 """
@@ -46,12 +46,11 @@ try:
     finally:
         conn.close()
 
-
+"""
 @app.route("/fancy", methods=["GET", "POST"])
 def fancy() -> str:
     return render_template("main.html")
 
-"""
 @app.route("/version")
 def version() -> str:
     commit_version = subprocess.run(
@@ -62,12 +61,12 @@ def version() -> str:
 @app.route("/emit_msg", methods=["GET", "POST"])
 def emit_msg() -> str:
     message = request.args.get("msg", "poke")
-    emit("chat message", message)
+    emit("chat message", message, namespace="/", broadcast=True)
     return '<a href="#?msg=hewwo">hewwo??</a>'
 
 @socketio.on("chat message")
 def handle_chat_msg(msg):
-    emit("chat message", f"you said {msg}")
+    emit("chat message", f"{msg}", namespace="/", broadcast=True)
 
 @app.route("/pull_git")
 def pull_git() -> str:

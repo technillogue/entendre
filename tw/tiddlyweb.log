@@ -1,0 +1,84 @@
+2020-01-29 18:40:37,498 ERROR tiddlyweb.manage: twanager error with command "server []"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 8080): [Errno 98] Address already in use)
+
+2020-01-29 18:42:09,878 ERROR tiddlyweb.manage: twanager error with command "server []"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 8080): [Errno 98] Address already in use)
+
+2020-01-29 18:42:33,506 ERROR tiddlyweb.manage: twanager error with command "server [u'0.0.0.0', u'80']"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 80): [Errno 13] Permission denied)
+
+2020-01-29 20:02:19,615 ERROR tiddlyweb.manage: twanager error with command "server []"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 8080): [Errno 98] Address already in use)
+
+2020-01-29 20:02:41,998 ERROR tiddlyweb.manage: twanager error with command "server [u'0.0.0.0', u'80']"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 80): [Errno 13] Permission denied)
+
+2020-02-04 19:56:30,326 ERROR tiddlyweb.manage: twanager error with command "server [u'0.0.0.0', u'80']"
+Traceback (most recent call last):
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/manage.py", line 103, in handle
+    COMMANDS[candidate_command](args)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlyweb/commands/__init__.py", line 68, in server
+    imported_module.start_server(config)
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/tiddlywebplugins/cherrypy.py", line 36, in start_server
+    server.start()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1795, in start
+    self.prepare()
+  File "/home/dorian_corvus/.local/lib/python2.7/site-packages/cheroot/server.py", line 1754, in prepare
+    raise socket.error(msg)
+error: No socket could be created -- (('0.0.0.0', 80): [Errno 13] Permission denied)
+
